@@ -9,7 +9,7 @@ import conta_bancaria.model.ContaPoupanca;
 
 public class Menu {
 	
-	public static final Scanner leia = new Scanner(System.in);
+	private static final Scanner leia = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
