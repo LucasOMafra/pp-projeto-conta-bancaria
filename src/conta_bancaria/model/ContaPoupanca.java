@@ -8,7 +8,8 @@ public class ContaPoupanca extends Conta{
 		super(numero, agencia, tipo, titular, saldo);
 		this.aniversario = aniversario;
 	}
-
+	
+	//Getter e Setter
 	public int getAniversario() {
 		return aniversario;
 	}

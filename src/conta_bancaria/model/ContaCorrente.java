@@ -9,7 +9,7 @@ public class ContaCorrente extends Conta {
 		this.limite = limite;
 	}
 
-	//Getters e Setters
+	//Getter e Setter
 	public float getLimite() {
 		return limite;
 	}
