@@ -3,6 +3,7 @@ package conta_bancaria;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import conta_bancaria.controller.ContaController;
 import conta_bancaria.model.Conta;
 import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.model.ContaPoupanca;
@@ -11,6 +12,7 @@ import conta_bancaria.util.Cores;
 public class Menu {
 
 	private static final Scanner leia = new Scanner(System.in);
+	private static final ContaController contaController = new ContaController();
 
 	public static void main(String[] args) {
 		
@@ -58,11 +60,15 @@ public class Menu {
 			switch (opcao) {
 			case 1:
 				System.out.println(Cores.TEXT_WHITE + "Criar Conta\n\n");
+				
+				cadastrarConta();
 
 				keyPress();
 				break;
 			case 2:
 				System.out.println(Cores.TEXT_WHITE + "Listar todas as Contas\n\n");
+				
+				listarContas();
 
 				keyPress();
 				break;
@@ -110,6 +116,41 @@ public class Menu {
 		System.out.println("Generation Brasil");
 		System.out.println("github.com/LucasOMafra");
 		System.out.println("*********************************************************");
+	}
+	
+	private static void listarContas() {
+		contaController.listarTodas();
+	}
+	
+	private static void cadastrarConta () {
+		
+		System.out.print("Digite o numero da agencia: ");
+		int agencia = leia.nextInt();
+		
+		System.out.print("Digite o nome do titular: ");
+		leia.skip("\\R");
+		String titular = leia.nextLine();
+		
+		System.out.print("Digite o tipo da conta (1- CC | 2-CP): ");
+		int tipo = leia.nextInt();
+		
+		System.out.print("Digite o saldo inicial da conta: ");
+		float saldo = leia.nextFloat();
+		
+		switch (tipo) {
+		case 1 -> {
+			System.out.println("Digite o limite da conta: ");
+			float limite = leia.nextFloat();
+			contaController.cadastrar(new ContaCorrente(contaController.gerarNumero(), agencia, tipo, titular, saldo, limite));
+		}
+		case 2 -> {
+			System.out.println("Digite o dia de aniversario da conta: ");
+			int aniversario = leia.nextInt();
+			contaController.cadastrar(new ContaPoupanca(contaController.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+		}
+		default -> System.out.println(Cores.TEXT_RED_BOLD + "Tipo de conta invalido!" + Cores.TEXT_RESET);	
+		}
+		
 	}
 
 	public static void keyPress() {
